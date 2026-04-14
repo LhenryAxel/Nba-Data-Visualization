@@ -7,8 +7,12 @@ from app.visualization import (
     get_center_assists_by_season_figure,
     get_points_by_position_figure,
     get_rebounds_by_position_figure,
-    get_assists_by_position_figure
+    get_assists_by_position_figure,
+    get_warriors_vs_league_radar_2016_figure,
+    get_warriors_vs_league_metrics_bar_2016_figure,
+    get_warriors_vs_league_roster_composition_2016_figure
 )
+
 
 st.set_page_config(page_title="NBA Small Ball Dashboard", layout="wide")
 
@@ -45,3 +49,21 @@ with col8:
     st.plotly_chart(get_assists_by_position_figure(), use_container_width=True)
 
 st.plotly_chart(get_rebounds_by_position_figure(), use_container_width=True)
+
+st.header("6. Warriors 2015-16 vs League Average")
+
+st.plotly_chart(get_warriors_vs_league_radar_2016_figure(), use_container_width=True)
+
+col9, col10 = st.columns(2)
+
+with col9:
+    st.plotly_chart(get_warriors_vs_league_metrics_bar_2016_figure(), use_container_width=True)
+
+with col10:
+    st.plotly_chart(get_warriors_vs_league_roster_composition_2016_figure(), use_container_width=True)
+
+st.markdown("""
+This section directly compares the 2015-16 Warriors to the average NBA team.
+It highlights structural differences in height, playmaking, net rating and roster composition,
+which helps make the small-ball transition much more explicit.
+""")
