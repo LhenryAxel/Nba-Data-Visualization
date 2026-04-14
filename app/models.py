@@ -1,11 +1,12 @@
 from sqlalchemy import create_engine, Column, Integer, String, Float
 from sqlalchemy.orm import declarative_base, sessionmaker
 
+#connexion a la base
 engine = create_engine("sqlite:///sportstats.db")
 Base = declarative_base()
 Session = sessionmaker(bind=engine)
 
-
+# modele User
 class User(Base):
     __tablename__ = "users"
 
@@ -14,7 +15,7 @@ class User(Base):
     password_hash = Column(String(256), nullable=False)
     role = Column(String(20), default="user")
 
-
+# modele PlayerStat
 class PlayerStat(Base):
     __tablename__ = "player_stats"
 
@@ -40,6 +41,7 @@ class PlayerStat(Base):
     ts_pct = Column(Float)
     ast_pct = Column(Float)
     season = Column(String(20))
+    #colonne enrichie
     pts_per_game_level = Column(String(30))
     age_group = Column(String(30))
     reb_per_cm = Column(Float)

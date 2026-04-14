@@ -12,8 +12,8 @@ def main():
     df = enrich_data(df)
 
     # 3. Insert into SQLite
-    df.to_sql("player_stats", engine, if_exists="replace", index=False)
-
+    df.to_sql("player_stats", engine, if_exists="append", index=False)
+    
     # 4. Verify insertion
     session = Session()
     count = session.query(PlayerStat).count()
