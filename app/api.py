@@ -87,12 +87,10 @@ def api_data(payload):
     try:
         season = request.args.get("season")
         team = request.args.get("team")
-        limit = request.args.get("limit", default=20, type=int)
+        limit = request.args.get("limit", type=int)
 
-        if limit is None or limit <= 0:
-            limit = 20
-        if limit > 100:
-            limit = 100
+        if limit is not None and limit <= 0:
+            limit = None
 
         query = session.query(PlayerStat)
 
@@ -102,7 +100,10 @@ def api_data(payload):
         if team:
             query = query.filter(PlayerStat.team_abbreviation == team.upper())
 
-        players = query.limit(limit).all()
+        if limit is not None:
+            players = query.limit(limit).all()
+        else:
+            players = query.all()
 
         data = [
             {
